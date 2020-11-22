@@ -22,18 +22,4 @@ class Validation
 	{
 		return filter_var($number,FILTER_VALIDATE_INT, 0);
 	}
-
-	public static function validerChaine(string $chaine)
-	{
-		/* Doit renvoyer le premier pattern qui match */
-    	$valeur = preg_match_all('/[[:alnum:]]*/', $chaine, $answer, 0);
-    	#debug
-    	#var_dump($answer); echo '<br> avec la valeur '.$valeur;
-    	foreach ($answer[0] as $key => $value) {
-    		if ($value != null) {
-    			return $value;
-    		}
-    	}
-    	return null;
-	}
 }

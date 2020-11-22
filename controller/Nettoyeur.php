@@ -22,4 +22,21 @@ class Nettoyeur
 	{
 		return filter_var($number,FILTER_SANITIZE_NUMBER_INT, 0);
 	}
+
+	/** * @param string $chaine
+	       * @return ?string Returns la première occurence du motif [[:alnum -_]], null s'il ne trouve pas.
+	*/ 
+	public static function nettoyerChaine(string $chaine) : ?string
+	{
+		/* Doit renvoyer le premier pattern qui match */
+    	$valeur = preg_match_all('/[[:alnum:] -_]+/', $chaine, $answer, 0);
+    	#debug
+    	#var_dump($answer); echo '<br> avec la valeur '.$valeur;
+    	foreach ($answer[0] as $key => $value) {
+    		if ($value != null) {
+    			return $value;
+    		}
+    	}
+    	return null;
+	}
 }
