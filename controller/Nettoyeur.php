@@ -24,11 +24,14 @@ class Nettoyeur
 	}
 
 	/** * @param string $chaine
-	       * @return ?string Returns la première occurence du motif [[:alnum -_]], null s'il ne trouve pas.
+	       * @return ?string Returns la première occurence du motif [[:alnum -_]]+, null s'il ne trouve pas.
 	*/ 
 	public static function nettoyerChaine(string $chaine) : ?string
 	{
-		/* Doit renvoyer le premier pattern qui match */
+		/** Explication du pattern 
+			La chaîne peut comporter des alphanumériques, des espaces, des tirets
+			Et uniquement ces caractères
+		*/
     	$valeur = preg_match_all('/[[:alnum:] -_]+/', $chaine, $answer, 0);
     	#debug
     	#var_dump($answer); echo '<br> avec la valeur '.$valeur;
