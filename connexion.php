@@ -12,8 +12,9 @@
 		        <label for="mail">password :</label>
 		        <input type="text" id="password" name="user_pass">
 		    </div>
+		    <input type="submit" value="Se connecter">
 		</form>
-	</div>	
+	</div>
 </center>
 
 
