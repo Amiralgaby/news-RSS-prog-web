@@ -21,7 +21,4 @@
     </nav>
   </header>
   <body class="bg-dark">
-    <div class="container">
-      <b><p class="text-white"> Liste des news RSS: </p></b>
-      <div class="container bg-white">
 <!-- Début des affichages des news en PHP -->
