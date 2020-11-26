@@ -10,7 +10,7 @@ class Article
 	private $heure;
 	private $site;
 
-	function __construct(int $id, char $titre, char $desc, int $heure, char $site)
+	function __construct(int $id, string $titre, string $desc, int $heure, string $site)
 	{
 		$this->id = $id;
 		$this->titre = $titre;
@@ -29,12 +29,12 @@ class Article
 		return getID();
 	}
 
-	public function getTitre() : char
+	public function getTitre() : string
 	{
 		return $this->titre;
 	}
 
-	public function getDesc() : char
+	public function getDesc() : string
 	{
 		return $this->desc;
 	}
@@ -44,7 +44,7 @@ class Article
 		return $this->heure;
 	}
 
-	public function getSite() : char
+	public function getSite() : string
 	{
 		return $this->site;
 	}
