@@ -7,18 +7,18 @@ class Flux
 	private $site;
 	private $URL;
 
-	function __construct(char $nomDeSite, char $URL)
+	function __construct(string $nomDeSite, string $URL)
 	{
 		$this->site = $nomDeSite;
 		$this->URL = $URL;
 	}
 
-	public function getSite() : char
+	public function getSite() : string
 	{
 		return $this->site;
 	}
 
-	public function getURL() : char
+	public function getURL() : string
 	{
 		return $this->URL;
 	}
