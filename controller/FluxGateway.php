@@ -5,13 +5,10 @@
 
 /**
  * Ne pas oubliez qu'un flux se compose :
- 1. de 'id'
- 2. de 'titre'
- 3. de 'description'
- 4. de 'heure' // type TIMESTAMP
- 5. de 'site' // le nom du site
+ 1. de son 'site'
+ 2/ de son 'URL'
  */
-require_once __DIR__.'\Connection.php';
+require_once (__DIR__.'\Connection.php');
 
 class FluxGateway
 {
@@ -22,6 +19,7 @@ class FluxGateway
 		$this->con = $con;
 	}
 
+/* // les flux n'ont plus d'ID, leur identification se fait selon le site
 	public function findByID(int $value) : array
 	{
 		# Est-ce qu'il y a une validation ?
@@ -36,7 +34,7 @@ class FluxGateway
 		}
 			return array();
 	}
-
+*/
 	/** * @param string $nomFlux
 		* @return array Retourne un tableau de flux contenant les flux possèdant ce titre
 	*/
@@ -47,9 +45,11 @@ class FluxGateway
 		{
 			return $this->con->getResults();
 		}
-		return array();		
+		return array();
 	}
 
+	/** * @return array Retourne un tableau de flux contenant tout les flux
+	*/	
 	public function retourneTout() : array
 	{
 		$query = 'SELECT * FROM Tflux';
@@ -57,6 +57,19 @@ class FluxGateway
 			echo "Une erreur est survenue";
 		}
 		return $this->con->getResults();
+	}
+
+	/** * @param string $URL
+		* @return array Retourne un tableau de flux contenant les flux possèdant cet URL
+	*/
+	public function FindByURL(string $URL) : array
+	{
+		$query = 'SELECT * FROM Tflux WHERE url = :Vurl';
+		if ($this->con->ExecuteQuery($query,array(':Vurl' => array($URL, PDO::PARAM_STR))))
+		{
+			return $this->con->getResults();
+		}
+		return array();
 	}
 }
 
