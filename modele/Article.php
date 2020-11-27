@@ -24,11 +24,6 @@ class Article
 		return $this->id;
 	}
 
-	public function getId() : int //Alias de getID
-	{
-		return getID();
-	}
-
 	public function getTitre() : string
 	{
 		return $this->titre;

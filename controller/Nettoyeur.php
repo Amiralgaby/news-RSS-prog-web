@@ -32,6 +32,7 @@ class Nettoyeur
 			La chaîne peut comporter des alphanumériques, des espaces, des tirets
 			Et uniquement ces caractères
 		*/
+		$chaine = Nettoyeur::nettoyerString($chaine);
     	$valeur = preg_match_all('/[[:alnum:] -_]+/', $chaine, $answer, 0);
     	#debug
     	#var_dump($answer); echo '<br> avec la valeur '.$valeur;
@@ -41,5 +42,14 @@ class Nettoyeur
     		}
     	}
     	return null;
+	}
+
+	/** * @param string $valeur
+	       * @return string Returns un string nettoyé
+	*/ 
+	public static function nettoyerString(string $valeur) : string
+	{
+		$retour = filter_var($valeur, FILTER_SANITIZE_STRING);
+		return $retour;
 	}
 }
