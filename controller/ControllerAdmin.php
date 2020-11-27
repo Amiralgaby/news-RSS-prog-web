@@ -28,7 +28,7 @@ try{
 	else
 	{
 		$debug = "[DEBUG] \$action pas défini";
-		init();
+		connexionAdmin();
 		#require (__DIR__.'/../vue/accueil.php');
 	}
 
@@ -41,32 +41,22 @@ catch (Exception $e)
 
 exit(0);
 
-
-function init()
-{
-	$user = 'root';
-	$pass = '';
-	$dns = 'mysql:host=localhost;dbname=projetweb';
-	$con = new Connection($dns,$user,$pass);
-	$gate = new FluxGateway($con);
-
-	$result = $gate->retourneTout();
-
-	require (__DIR__.'/../vue/accueil.php');
-}
-
-
 function connexionAdmin()
 {
 	$user = $_REQUEST['user_name'];
 	$pass = $_REQUEST['user_pass'];
-	echo "</br>Vous êtes entrain de vous connecter en tant que ".$user.'</br>';
+	##############
+	$dns = 'mysql:host=localhost;dbname=projetweb';
+	$con = new Connection($dns,$user,$pass);
+	$gate = new FluxGateway($con);
+	##############
 	$user = Nettoyeur::nettoyerChaine($user);
 	$pass = Nettoyeur::nettoyerString($pass);
-
-	if (Validation::validerChaine($user))
+	##############
+	if (1) # à Valider
 	{
-		require (__DIR__.'/../vue/vueAdmin.php');
+		$result = $gate->retourneTout();
+		require (__DIR__.'/../vue/accueil.php');
 	}else{
 		require (__DIR__.'/../vue/vueErreurAdmin.php');
 	}
