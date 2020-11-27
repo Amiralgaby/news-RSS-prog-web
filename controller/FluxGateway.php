@@ -5,7 +5,7 @@
 
 /**
  * Ne pas oubliez qu'un flux se compose :
- 1. de son 'site'
+ 1. de son 'NomSite'
  2/ de son 'URL'
  */
  require_once (__DIR__.'/Connection.php');
@@ -18,7 +18,7 @@ class FluxGateway
 		$this->con = $con;
 	}
 
-/* // les flux n'ont plus d'ID, leur identification se fait selon le site
+/* // les flux n'ont plus d'ID, leur identification se fait selon le NomSite
 	public function findByID(int $value) : array
 	{
 		# Est-ce qu'il y a une validation ?
@@ -38,7 +38,7 @@ class FluxGateway
 	{
 		$resultOUT = array();
 		foreach ($resultIN as $value) {
-			$resultOUT[] = new Flux($value['site'],$value['site']);
+			$resultOUT[] = new Flux($value['NomSite'],$value['URL']);
 		}
 		return $resultOUT;
 	}
@@ -48,7 +48,7 @@ class FluxGateway
 	*/
 	public function findByName(string $titreFlux) : array
 	{
-		$query = 'SELECT * FROM tflux WHERE titre LIKE \'%:Vnom%\'';
+		$query = 'SELECT * FROM tflux WHERE NomSite LIKE \'%:Vnom%\'';
 		if (!$this->con->ExecuteQuery($query,array(':Vnom' => array($titreFlux, PDO::PARAM_STR))))
 		{
 			echo "Fluxgateway.php : findByName() : Une erreur est survenue";
@@ -76,7 +76,7 @@ class FluxGateway
 	*/
 	public function FindByURL(string $URL) : array
 	{
-		$query = 'SELECT * FROM Tflux WHERE url LIKE \'%:Vurl%\'';
+		$query = 'SELECT * FROM Tflux WHERE URL LIKE \'%:Vurl%\'';
 		if (!$this->con->ExecuteQuery($query,array(':Vurl' => array($URL, PDO::PARAM_STR))))
 		{
 			echo "Fluxgateway.php : retourneTout() : Une erreur est survenue";

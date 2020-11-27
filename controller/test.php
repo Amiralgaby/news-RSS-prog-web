@@ -12,6 +12,25 @@
 <?php
 
 require 'Nettoyeur.php';
+require_once (__DIR__.'/FluxGateway.php');
+require_once (__DIR__.'/ArticleGateway.php');
+require_once (__DIR__.'/../modele/Flux.php');
+require_once (__DIR__.'/../modele/Article.php');
+
+$user = 'root';
+$pass = '';
+$dns = 'mysql:host=localhost;dbname=projetweb';
+$con = new Connection($dns,$user,$pass);
+$gate = new ArticleGateway($con);
+$result = $gate->retourneTout();
+
+foreach ($result as $value) {
+	echo $value->getID().'</br>';
+	echo $value->getTitre().'</br>';
+	echo $value->getDesc().'</br>';
+	echo $value->getHeure().'</br>';
+	echo $value->getSite().'</br>';
+}
 
 $chaine = 'Gabriel-Theuws';
 #$chaine = 'Palceholder';
