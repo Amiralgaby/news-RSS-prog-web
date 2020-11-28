@@ -22,7 +22,7 @@ else
 $action='accueil'; # pour aller à l'accueil lors d'un clic
 ?>
 	</br>
-	<a href="../controller/Controller.php" >Forcer le retour à la page normal</a>
+	<a href="../controller/Controller.php?action=accueil" >Forcer le retour à la page normal</a>
 <!-- Séparateur de PHP et HTML bien visible ^^-->
 	</div>
 </div>
