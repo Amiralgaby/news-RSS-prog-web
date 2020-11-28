@@ -1,4 +1,4 @@
 <?php
 //si controller pas objet
-  header('Location: controller/Controller.php');
+  header('Location: controller/Controller.php?action=accueil');
 ?>
