@@ -8,7 +8,7 @@
  1. de son 'NomSite'
  2/ de son 'URL'
  */
- require_once (__DIR__.'/Connection.php');
+require_once (__DIR__.'/Connection.php');
 class FluxGateway
 {
 	private $con;
@@ -18,22 +18,9 @@ class FluxGateway
 		$this->con = $con;
 	}
 
-/* // les flux n'ont plus d'ID, leur identification se fait selon le NomSite
-	public function findByID(int $value) : array
-	{
-		# Est-ce qu'il y a une validation ?
-		$query = 'SELECT * FROM tflux WHERE id = :Vid';
-		try {
-			if($this->con->ExecuteQuery($query,array(':Vid' => array($value, PDO::PARAM_INT))))
-			{
-				return $this->con->getResults();
-			}
-		} catch (Exception $e) {
-			echo "Une erreur s'est produite avec $con";	
-		}
-			return array();
-	}
-*/
+	/** * @param array $resultIN
+		* @return array Retourne un array de Flux
+	*/
 	private function construireArrayDeFlux(array $resultIN) : array
 	{
 		$resultOUT = array();
@@ -79,7 +66,7 @@ class FluxGateway
 		$query = 'SELECT * FROM Tflux WHERE URL LIKE \'%:Vurl%\'';
 		if (!$this->con->ExecuteQuery($query,array(':Vurl' => array($URL, PDO::PARAM_STR))))
 		{
-			echo "Fluxgateway.php : retourneTout() : Une erreur est survenue";
+			echo "Fluxgateway.php : FindByURL() : Une erreur est survenue";
 			return array();
 		}
 		$result = $this->con->getResults();

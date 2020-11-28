@@ -48,6 +48,7 @@ class ArticleGateway
 	{
 		$resultOUT = array();
 		foreach ($resultIN as $value) {
+			echo $value['IDArt'].'	'.$value['Titre/URL'].'	'.$value['Description'].'	'.$value['Heure'].'	'.$value['NomSite'];
 			$resultOUT[] = new Article($value['IDArt'],$value['Titre/URL'],$value['Description'],$value['Heure'],$value['NomSite']);
 		}
 		return $resultOUT;

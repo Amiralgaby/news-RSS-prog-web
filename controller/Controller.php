@@ -8,34 +8,25 @@ require_once (__DIR__.'/../modele/Flux.php');
 require_once (__DIR__.'/../modele/Article.php');
 
 try{
-	if (isset($action))
-	{
-		$action=$_REQUEST['action'];
 
-		switch ($action) {
-			case NULL:
-			case 'accueil':
-				init();
-				break;
-			case 'connexionAdmin':
-				connexionAdmin();
-				break;
-			default:
-				require (__DIR__.'/../vue/vueInconnu.php');
-				break;
-		}
-	}
-	else
+	switch ($_REQUEST['action'])
 	{
-		$debug = "[DEBUG] \$action pas défini";
-		init();
-		#require (__DIR__.'/../vue/accueil.php');
+		case NULL:
+		case 'accueil':
+			init();
+			break;
+		case 'connexionAdmin':
+			connexionAdmin();
+			break;
+		default:
+			$debug = "l'action '". $_REQUEST['action'] ."'' n'est pas bonne."; #debug
+			require (__DIR__.'/../vue/vueErreur.php');
+			break;
 	}
-
 }
 catch (Exception $e)
 {
-	$debug = "[DEBUG] le try s'est planté";
+	$debug = "[DEBUG] le try s'est planté"; #debug
 	require (__DIR__.'/../vue/vueErreur.php');
 }
 
@@ -58,16 +49,5 @@ function init()
 
 function connexionAdmin()
 {
-	$user = $_REQUEST['user_name'];
-	$pass = $_REQUEST['user_pass'];
-	echo "</br>Vous êtes entrain de vous connecter en tant que ".$user.'</br>';
-	$user = Nettoyeur::nettoyerChaine($user);
-	$pass = Nettoyeur::nettoyerString($pass);
-
-	if (Validation::validerChaine($user))
-	{
-		require (__DIR__.'/../vue/vueAdmin.php');
-	}else{
-		require (__DIR__.'/../vue/vueErreurAdmin.php');
-	}
+	require (__DIR__.'/../vue/connexion.php');
 }
