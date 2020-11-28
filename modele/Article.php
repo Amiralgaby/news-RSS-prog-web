@@ -6,14 +6,16 @@ class Article
 {
 	private $id;
 	private $titre;
+	private $url;
 	private $desc;
 	private $heure;
 	private $site;
 
-	function __construct(int $id, string $titre, string $desc, int $heure, string $site)
+	function __construct(int $id, string $titre, string $url, string $desc, string $heure, string $site)
 	{
 		$this->id = $id;
 		$this->titre = $titre;
+		$this->url = $url;
 		$this->desc = $desc;
 		$this->heure = $heure;
 		$this->site = $site;
@@ -29,12 +31,17 @@ class Article
 		return $this->titre;
 	}
 
+	public function getURL() : string
+	{
+		return $this->url;
+	}
+
 	public function getDesc() : string
 	{
 		return $this->desc;
 	}
 
-	public function getHeure() : int
+	public function getHeure() : string
 	{
 		return $this->heure;
 	}

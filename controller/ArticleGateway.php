@@ -35,7 +35,7 @@ class ArticleGateway
 
 	public function retourneTout() : array
 	{
-		$query = 'SELECT * FROM tarticle';
+		$query = 'SELECT * FROM tarticle ORDER BY Heure DESC';
 		if (!$this->con->ExecuteQuery($query,array())) {
 			echo "Articlegateway.php : retourneTout() : Une erreur est survenue";
 			return array();
@@ -48,8 +48,7 @@ class ArticleGateway
 	{
 		$resultOUT = array();
 		foreach ($resultIN as $value) {
-			echo $value['IDArt'].'	'.$value['Titre/URL'].'	'.$value['Description'].'	'.$value['Heure'].'	'.$value['NomSite'];
-			$resultOUT[] = new Article($value['IDArt'],$value['Titre/URL'],$value['Description'],$value['Heure'],$value['NomSite']);
+			$resultOUT[] = new Article($value['IDArt'],$value['Titre'], $value['URL'],$value['Description'],$value['Heure'],$value['NomSite']);
 		}
 		return $resultOUT;
 	}
@@ -59,7 +58,7 @@ class ArticleGateway
 	*/
 	public function findByFlux(string $nomFlux) : array
 	{
-		$query = 'SELECT * FROM tarticle WHERE NomSite LIKE \'%:Vnom%\'';
+		$query = 'SELECT * FROM tarticle WHERE NomSite=:Vnom';
 		if (!$this->con->ExecuteQuery($query,array(':Vnom' => array($nomFlux, PDO::PARAM_STR))))
 		{
 			echo "Articlegateway.php : findByName() : Une erreur est survenue";

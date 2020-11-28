@@ -35,7 +35,7 @@ class FluxGateway
 	*/
 	public function findByName(string $titreFlux) : array
 	{
-		$query = 'SELECT * FROM tflux WHERE NomSite LIKE \'%:Vnom%\'';
+		$query = 'SELECT * FROM tflux WHERE NomSite =:Vnom';
 		if (!$this->con->ExecuteQuery($query,array(':Vnom' => array($titreFlux, PDO::PARAM_STR))))
 		{
 			echo "Fluxgateway.php : findByName() : Une erreur est survenue";
@@ -63,7 +63,7 @@ class FluxGateway
 	*/
 	public function FindByURL(string $URL) : array
 	{
-		$query = 'SELECT * FROM Tflux WHERE URL LIKE \'%:Vurl%\'';
+		$query = 'SELECT * FROM Tflux WHERE URL =:Vurl';
 		if (!$this->con->ExecuteQuery($query,array(':Vurl' => array($URL, PDO::PARAM_STR))))
 		{
 			echo "Fluxgateway.php : FindByURL() : Une erreur est survenue";
