@@ -23,6 +23,9 @@ try{
 	case 'lf': #lister les Flux
 		listerLesFlux();
 		break;
+	case 'insert':
+		insertFlux();
+		break;
 	default:
 		$debug = "l'action '". $_REQUEST['action'] ."'' n'est pas bonne."; #debug
 		require (__DIR__.'/../vue/vueErreur.php');
@@ -31,11 +34,48 @@ try{
 }
 catch (Exception $e)
 {
-	$debug = "[DEBUG] le try s'est planté";
-	require (__DIR__.'/../vue/vueErreur.php');
+	$debug = $e->getMessage(); # On laisse le serv être plus clair niveau debug
+	require (__DIR__.'/../vue/vueErreur.php'); 
 }
 
 exit(0);
+
+function insertFlux()
+{
+	if (!isset($_REQUEST['site_name']) or !isset($_REQUEST['site_url'])) {
+		$debug = 'l\'user_name ou l\'user_pass n\'est pas set.';
+		require (__DIR__.'/../vue/vueErreur.php');
+		return;
+	}
+	$dns = 'mysql:host=localhost;dbname=projetweb';
+	$user = $_SESSION['user'];
+	$pass = $_SESSION['pass'];
+	$gate = new FluxGateway(new Connection($dns,$user,$pass));
+
+	########## Nettoyage
+	$name = Nettoyeur::nettoyerString($_REQUEST['site_name']);
+	$url = Nettoyeur::nettoyerURL($_REQUEST['site_url']);
+
+	######### Validation
+	if (Validation::validerURL($url) and $name) 
+	{
+		if ($gate->insererFlux($name,$url)) {
+			$result = $gate->retourneTout(); # la page vueAdmin.php demande toujours un $result sinon bug (à recycler ?)
+			require_once (__DIR__.'/../vue/vueAdmin.php'); #On revient juste à la page d'accueil
+		}
+		else
+		{
+			$debug = "l'insertion n'a pas réussi";
+			require_once (__DIR__.'/../vue/vueErreur.php');
+		}
+	}
+	else
+	{
+		$debug = "l'url ou le nom du site ne sont pas bon";
+		require_once (__DIR__.'/../vue/vueErreur.php');
+	}
+}
+
 
 function listerLesFlux()
 {

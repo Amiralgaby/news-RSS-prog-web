@@ -9,8 +9,8 @@
 		        <input type="text" id="identifiant" name="user_name">
 		    </div>
 		    <div>
-		        <label for="mail">password :</label>
-		        <input type="text" id="password" name="user_pass">
+		        <label for="password">password :</label>
+		        <input type="password" id="password" name="user_pass">
 		    </div>
 		    <input type="submit" value="Se connecter">
 		</form>
