@@ -79,13 +79,8 @@ class FluxGateway
 	public function insererFlux(string $name, string $url) : bool
 	{
 		$query = 'INSERT INTO Tflux (NomSite,URL)VALUES(:Vname,:Vurl)';
-		if (!$this->con->ExecuteQuery($query,array(':Vname' => array($name, PDO::PARAM_STR),
-													':Vurl' => array($url, PDO::PARAM_STR)
-												)))
-		{
-			echo "Fluxgateway.php : FindByURL() : Une erreur est survenue";
+		if (!$this->con->ExecuteQuery($query,array(':Vname' => array($name, PDO::PARAM_STR),':Vurl' => array($url, PDO::PARAM_STR))))
 			return false;
-		}
 		return true;
 	}
 }

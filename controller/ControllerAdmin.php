@@ -8,120 +8,91 @@ require_once (__DIR__.'/../modele/Modele.php');
 session_start();
 
 try{
+	$user = 'root';
+	$pass = '';
+	$dns = 'mysql:host=localhost;dbname=projetweb';
+	$con = new Connection($dns,$user,$pass);
 	switch ($_REQUEST['action'])
 	{
 	case NULL:
 	case 'accueil':
-		init();
-		break;
-	case 'la': #lister les Articles
-		listerLesArticles();
-		break;
-	case 'lf': #lister les Flux
-		listerLesFlux();
+		init($con);
 		break;
 	case 'insert':
-		insertFlux();
+		insertFlux($con);
 		break;
 	default:
-		$debug = "l'action '". $_REQUEST['action'] ."'' n'est pas bonne."; #debug
-		require (__DIR__.'/../vue/vueErreur.php');
+		error("l'action '". $_REQUEST['action'] ."'' n'est pas bonne."); #debug
 		break;
 	}
 }
 catch (Exception $e)
 {
-	$debug = $e->getMessage(); # On laisse le serv être plus clair niveau debug
-	require (__DIR__.'/../vue/vueErreur.php'); 
+	error($e->getMessage()); # On laisse le serv être plus clair niveau debug
 }
 
 exit(0);
 
-function insertFlux()
+function insertFlux($con)
 {
 	if (!isset($_REQUEST['site_name']) or !isset($_REQUEST['site_url'])) {
-		$debug = 'l\'user_name ou l\'user_pass n\'est pas set.';
-		require (__DIR__.'/../vue/vueErreur.php');
+		error('l\'user_name ou l\'user_pass n\'est pas set.');
 		return;
 	}
-	$dns = 'mysql:host=localhost;dbname=projetweb';
-	$user = $_SESSION['user'];
-	$pass = $_SESSION['pass'];
-	$gate = new FluxGateway(new Connection($dns,$user,$pass));
-
 	########## Nettoyage
 	$name = Nettoyeur::nettoyerString($_REQUEST['site_name']);
 	$url = Nettoyeur::nettoyerURL($_REQUEST['site_url']);
-
+	$m=new Modele($con);
 	######### Validation
-	if (Validation::validerURL($url) and $name) 
+	if (Validation::validerURL($url)) 
 	{
-		if ($gate->insererFlux($name,$url)) {
-			$result = $gate->retourneTout(); # la page vueAdmin.php demande toujours un $result sinon bug (à recycler ?)
+		if ($m->insertFlux($name,$url)) {
+			$result=$m->getFlux();
+			if (!isset($result)){
+				error("Fluxgateway.php : retourneTout() : Une erreur est survenue"); #debug
+				return;
+			}
+			$tabFlux=$m->rendreTabFlux($result);
 			require_once (__DIR__.'/../vue/vueAdmin.php'); #On revient juste à la page d'accueil
 		}
 		else
 		{
-			$debug = "l'insertion n'a pas réussi";
-			require_once (__DIR__.'/../vue/vueErreur.php');
+			error("l'insertion n'a pas réussi");
+			return;
 		}
 	}
 	else
 	{
-		$debug = "l'url ou le nom du site ne sont pas bon";
-		require_once (__DIR__.'/../vue/vueErreur.php');
-	}
-}
-
-
-function listerLesFlux()
-{
-	$dns = 'mysql:host=localhost;dbname=projetweb';
-	$user = $_SESSION['user'];
-	$pass = $_SESSION['pass'];
-	$gate = new FluxGateway(new Connection($dns,$user,$pass));
-	$result = $gate->retourneTout();
-	require (__DIR__.'/../vue/vueAdmin.php');
-}
-
-function listerLesArticles()
-{
-	$dns = 'mysql:host=localhost;dbname=projetweb';
-	$user = $_SESSION['user'];
-	$pass = $_SESSION['pass'];
-	$con = new Connection($dns,$user,$pass);
-	$gate = new ArticleGateway($con);
-	$result = $gate->retourneTout();
-	require (__DIR__.'/../vue/vueAdmin.php');
-}
-
-
-function init()
-{
-	if (!isset($_REQUEST['user_name']) or !isset($_REQUEST['user_pass'])) {
-		$debug = 'l\'user_name ou l\'user_pass n\'est pas set.';
-		require (__DIR__.'/../vue/vueErreur.php');
+		error("l'url ou le nom du site ne sont pas bon");
 		return;
 	}
-	$dns = 'mysql:host=localhost;dbname=projetweb';
-	$user = $_REQUEST['user_name'];
-	$pass = $_REQUEST['user_pass'];
-	############
-	$user = Nettoyeur::nettoyerChaine($user);
-	$pass = Nettoyeur::nettoyerString($pass);
+}
 
-	if ($user) # à Valider
-	{
-		$_SESSION['user'] = $user;
-		$_SESSION['pass'] = $pass;
-		$con = new Connection($dns,$user,$pass);
-		$gateFlux = new FluxGateway($con);
-		#$gateArticle = new ArticleGateway($con);
-
-		$result = $gateFlux->retourneTout();
-		require (__DIR__.'/../vue/vueAdmin.php');
-	}else{
-		$debug = '$user est indéterminé'; #debug
-		require (__DIR__.'/../vue/vueErreur.php');
+function init($con)
+{
+	if (!isset($_REQUEST['user_name']) or !isset($_REQUEST['user_pass'])) {
+		error('l\'user_name ou l\'user_pass n\'est pas set.');
+		return;
 	}
+	$util = $_REQUEST['user_name'];
+	$mdp = $_REQUEST['user_pass'];
+	$util = Nettoyeur::nettoyerChaine($util);
+	$mdp = Nettoyeur::nettoyerString($mdp);
+	$m=new Modele($con);
+	if (!($m->verifAdmin($util,$mdp))){
+		error('Le nom d\'admin ou le mot de passe est faux');
+		return;
+	}
+	$result=$m->getFlux();
+	if (!isset($result)){
+		error("Fluxgateway.php : retourneTout() : Une erreur est survenue"); #debug
+		return;
+	}
+	$tabFlux=$m->rendreTabFlux($result);
+	require (__DIR__.'/../vue/vueAdmin.php');
+}
+
+function error(string $mdebug){
+	$debug = $mdebug;
+	require (__DIR__.'/../vue/vueErreur.php');
 }

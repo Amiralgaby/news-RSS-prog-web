@@ -5,7 +5,6 @@ require_once (__DIR__.'/../config/Validation.php');
 require_once (__DIR__.'/../config/Nettoyeur.php');
 require_once (__DIR__.'/../modele/Modele.php');
 
-
 try{
 
 	switch ($_REQUEST['action'])
@@ -39,9 +38,13 @@ function init()
 	$dns = 'mysql:host=localhost;dbname=projetweb';
 	$con = new Connection($dns,$user,$pass);
 	$m=new Modele($con);
-	$result=$m->getFlux();
 	$result2=$m->getArticles();
-	$tabArt=$m->rendreTab($result2);
+	if (!isset($result2)){
+		$debug = "Articlegateway.php : retourneTout() : Une erreur est survenue"; #debug
+		require (__DIR__.'/../vue/vueErreur.php');
+		return;
+	}
+	$tabArt=$m->rendreTabArt($result2);
 	require (__DIR__.'/../vue/accueil.php');
 }
 

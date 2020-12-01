@@ -5,7 +5,6 @@
  */
 
 require_once (__DIR__.'/../controller/Connection.php');
-
 class ArticleGateway
 {
 	private $con;
@@ -37,7 +36,6 @@ class ArticleGateway
 	{
 		$query = 'SELECT * FROM tarticle ORDER BY Heure DESC';
 		if (!$this->con->ExecuteQuery($query,array())) {
-			echo "Articlegateway.php : retourneTout() : Une erreur est survenue";
 			return array();
 		}
 		$result = $this->con->getResults();

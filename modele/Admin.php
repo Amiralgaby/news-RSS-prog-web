@@ -7,7 +7,7 @@ class Admin
 	private $name;
 	private $pass;
 
-	function __construct(int $name, string $pass){
+	function __construct(string $name, string $pass){
 		$this->name=$name;
 		$this->pass=$pass;
 	}
