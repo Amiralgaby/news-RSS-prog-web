@@ -3,9 +3,8 @@
 // Chargement des classes dont ont a besoin
 require_once (__DIR__.'/Validation.php');
 require_once (__DIR__.'/Nettoyeur.php');
-require_once (__DIR__.'/FluxGateway.php');
-require_once (__DIR__.'/../modele/Flux.php');
-require_once (__DIR__.'/../modele/Article.php');
+require_once (__DIR__.'/../modele/Modele.php');
+
 
 try{
 
@@ -39,9 +38,8 @@ function init()
 	$pass = '';
 	$dns = 'mysql:host=localhost;dbname=projetweb';
 	$con = new Connection($dns,$user,$pass);
-	$gate = new FluxGateway($con);
-
-	$result = $gate->retourneTout();
+	$m=new Modele($con);
+	$result=$m->getFlux();
 
 	require (__DIR__.'/../vue/accueil.php');
 }

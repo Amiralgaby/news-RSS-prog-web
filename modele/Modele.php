@@ -1,0 +1,35 @@
+<?php
+
+require_once (__DIR__.'/../controller/FluxGateway.php');
+require_once (__DIR__.'/../controller/ArticleGateway.php');
+require_once (__DIR__.'./Flux.php');
+require_once (__DIR__.'./Article.php');
+
+class Modele
+{
+	private $gateflux;
+	private $gatearticle;
+
+	public function __construct($con){
+		$this->gatearticle=new ArticleGateway($con);
+		$this->gateflux=new FluxGateway($con);
+	}
+
+	public function getFlux(){
+		return $this->gateflux->retourneTout();
+	}
+
+	public function getArticles(){
+		return $this->gatearticle->retourneTout();
+	}
+
+	public function addFlux(string $name, string $url){
+		return $this->gateflux->insererFlux($name,$url);
+	}
+
+	public function findByFluxName($name){
+		return $this->gateflux->findByName($name);
+	}
+}
+
+?>
