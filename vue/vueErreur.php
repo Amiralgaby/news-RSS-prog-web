@@ -1,6 +1,5 @@
 <?php
 require_once 'header.php'; 
-require_once (__DIR__.'/../modele/Flux.php'); 
 ?>
 
 <center>
@@ -19,10 +18,9 @@ else
 }
 #Commun au deux cas
 
-$action='accueil'; # pour aller à l'accueil lors d'un clic
 ?>
 	</br>
-	<a href="../controller/Controller.php?action=accueil" >Forcer le retour à la page normal</a>
+	<a href="index.php" >Forcer le retour à la page normal</a>
 <!-- Séparateur de PHP et HTML bien visible ^^-->
 	</div>
 </div>

@@ -13,7 +13,9 @@ class Modele
 	private $gatearticle;
 	private $gateadmin;
 
-	public function __construct($con){
+	public function __construct(){
+		global $dns,$user,$pass;
+		$con = new Connection($dns,$user,$pass);
 		$this->gatearticle=new ArticleGateway($con);
 		$this->gateflux=new FluxGateway($con);
 		$this->gateadmin=new AdminGateway($con);

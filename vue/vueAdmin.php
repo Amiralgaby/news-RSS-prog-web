@@ -1,6 +1,5 @@
 <?php
 require_once 'header.php'; 
-require_once (__DIR__.'/../modele/Flux.php'); 
 ?>
 
 
@@ -19,7 +18,7 @@ foreach ($tabFlux as $value) {
 ?>
 <!-- Séparateur de PHP et HTML bien visible ^^-->
   </div>
-<form action="../controller/ControllerAdmin.php?action=insert" method="post" class="text-white">
+<form action="index.php?action=insert&&cont=1" method="post" class="text-white">
     <div class="row">
     <div class="col">
           <label for="name">NomSite</label>
