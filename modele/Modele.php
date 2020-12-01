@@ -30,6 +30,18 @@ class Modele
 	public function findByFluxName($name){
 		return $this->gateflux->findByName($name);
 	}
+
+	public function rendreTab(array $art) : array{
+		$tab=array();
+		foreach ($art as $value) {
+			$res=$this->findByFluxName($value->getSite());
+			foreach ($res as $v) {
+				$mintab=array(date('d/m/y \à\ H:i:s ',strtotime($value->getHeure())), $v->getURL(), $value->getSite(), $value->getURL(), $value->getTitre());
+				array_push($tab, $mintab);
+			}
+		}
+		return $tab;
+	}
 }
 
 ?>

@@ -40,7 +40,8 @@ function init()
 	$con = new Connection($dns,$user,$pass);
 	$m=new Modele($con);
 	$result=$m->getFlux();
-
+	$result2=$m->getArticles();
+	$tabArt=$m->rendreTab($result2);
 	require (__DIR__.'/../vue/accueil.php');
 }
 

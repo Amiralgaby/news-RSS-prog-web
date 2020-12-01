@@ -1,6 +1,5 @@
 <?php
 require_once 'header.php'; 
-require_once (__DIR__.'/../modele/Flux.php'); 
 ?>
 
 
@@ -16,12 +15,49 @@ else{ echo "Vous n'avez pas pu être connecté au site. Vérifiez le paramètre 
 
 if (isset($debug)) echo "Un debogage s'est déclenché voici le message : ".$debug.'</br>';
 
-
+/*
 #je reçois des Flux
 	echo '<b>  Site récupéré			[URL du site]</b></br>';
 foreach ($result as $value) {
 	echo '<em>'.$value->getSite().'		['.$value->getURL().']</em></br>';
 }
+*/
+
+echo '<table>';
+echo '<tr>';
+	echo '<th>Date:</th>';
+	echo '<th></th>';
+	echo '<th>Site:</th>';
+	echo '<th></th>';
+	echo '<th>Titre de l\'article:</th>';
+echo '</tr>';
+foreach ($tabArt as $value) {
+	echo '<tr>';
+		echo '<td>';
+			//echo date('d/m/y \à\ H:i:s ',strtotime($value->getHeure()));
+			echo $value[0];
+		echo '</td>';
+		echo '<td>';
+			echo ' - ';
+		echo '</td>';
+		echo '<td>';
+			echo '<a href="'.$value[1].'">';
+				echo $value[2];
+			echo '</a>';
+		echo '</td>';
+		echo '<td>';
+			echo ' : ';
+		echo '</td>';
+		echo '<td>';
+			echo '<a href="'.$value[3].'">';
+				echo $value[4];
+			echo '</a>';
+			
+		echo '</td>';
+	echo '<tr>';
+}
+echo '</table>';
+
 ?>
 <!-- Séparateur de PHP et HTML bien visible ^^-->
   </div>
