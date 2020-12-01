@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 28 nov. 2020 à 17:49
+-- Généré le : mar. 01 déc. 2020 à 13:53
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `projetweb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tadmin`
+--
+
+DROP TABLE IF EXISTS `tadmin`;
+CREATE TABLE IF NOT EXISTS `tadmin` (
+  `Nom` varchar(20) COLLATE utf8mb4_bin NOT NULL,
+  `mdp` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`Nom`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Déchargement des données de la table `tadmin`
+--
+
+INSERT INTO `tadmin` (`Nom`, `mdp`) VALUES
+('Gabriel', 'theuws'),
+('Erwan', 'soulier');
 
 -- --------------------------------------------------------
 
