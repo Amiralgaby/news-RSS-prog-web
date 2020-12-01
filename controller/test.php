@@ -4,9 +4,9 @@
 
 <?php
 
-require 'Nettoyeur.php';
-require_once (__DIR__.'/FluxGateway.php');
-require_once (__DIR__.'/ArticleGateway.php');
+require '../config/Nettoyeur.php';
+require_once (__DIR__.'/../modele/FluxGateway.php');
+require_once (__DIR__.'/../modele/ArticleGateway.php');
 require_once (__DIR__.'/../modele/Flux.php');
 require_once (__DIR__.'/../modele/Article.php');
 

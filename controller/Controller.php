@@ -1,8 +1,8 @@
 <?php
 
 // Chargement des classes dont ont a besoin
-require_once (__DIR__.'/Validation.php');
-require_once (__DIR__.'/Nettoyeur.php');
+require_once (__DIR__.'/../config/Validation.php');
+require_once (__DIR__.'/../config/Nettoyeur.php');
 require_once (__DIR__.'/../modele/Modele.php');
 
 

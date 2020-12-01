@@ -8,7 +8,7 @@
  1. de son 'NomSite'
  2/ de son 'URL'
  */
-require_once (__DIR__.'/Connection.php');
+require_once (__DIR__.'/../controller/Connection.php');
 class FluxGateway
 {
 	private $con;

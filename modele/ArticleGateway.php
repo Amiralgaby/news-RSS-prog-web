@@ -4,7 +4,7 @@
  * ArticleGateway permet de faire la connexion entre la base de données et les Articles
  */
 
-require_once (__DIR__.'/Connection.php');
+require_once (__DIR__.'/../controller/Connection.php');
 
 class ArticleGateway
 {

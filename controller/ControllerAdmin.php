@@ -1,12 +1,9 @@
 <?php
 
 // Chargement des classes dont ont a besoin
-require_once (__DIR__.'/Validation.php');
-require_once (__DIR__.'/Nettoyeur.php');
-require_once (__DIR__.'/FluxGateway.php');
-require_once (__DIR__.'/ArticleGateway.php');
-require_once (__DIR__.'/../modele/Flux.php');
-require_once (__DIR__.'/../modele/Article.php');
+require_once (__DIR__.'/../config/Validation.php');
+require_once (__DIR__.'/../config/Nettoyeur.php');
+require_once (__DIR__.'/../modele/Modele.php');
 
 session_start();
 

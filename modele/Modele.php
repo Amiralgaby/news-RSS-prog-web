@@ -1,7 +1,7 @@
 <?php
 
-require_once (__DIR__.'/../controller/FluxGateway.php');
-require_once (__DIR__.'/../controller/ArticleGateway.php');
+require_once (__DIR__.'/FluxGateway.php');
+require_once (__DIR__.'/ArticleGateway.php');
 require_once (__DIR__.'./Flux.php');
 require_once (__DIR__.'./Article.php');
 
