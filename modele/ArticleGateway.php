@@ -3,7 +3,15 @@
 /**
  * ArticleGateway permet de faire la connexion entre la base de données et les Articles
  */
-
+/**
+ * Ne pas oubliez qu'un article se compose :
+ 1. de son 'id'
+ 2/ de son 'titre'
+ 3/ d'une 'URL'
+ 4/ d'une 'description'
+ 5/ d'une 'heure'
+ 6/ de son 'Nomsite'
+ */
 require_once (__DIR__.'/../controller/Connection.php');
 class ArticleGateway
 {
@@ -27,9 +35,9 @@ class ArticleGateway
 				return $this->construireArrayDArticle($result);	
 			}
 		} catch (Exception $e) {
-			echo "Une erreur s'est produite dans ArticleGatway : findByID";	
+			return array();
 		}
-		return array();
+		
 	}
 
 	public function retourneTout() : array
@@ -59,11 +67,32 @@ class ArticleGateway
 		$query = 'SELECT * FROM tarticle WHERE NomSite=:Vnom';
 		if (!$this->con->ExecuteQuery($query,array(':Vnom' => array($nomFlux, PDO::PARAM_STR))))
 		{
-			echo "Articlegateway.php : findByName() : Une erreur est survenue";
 			return array();
 		}
 		$result = $this->con->getResults();
 		return $this->construireArrayDArticle($result);		
+	}
+
+	/** * @param int $id, string $titre, string $url, strin $desc, string $heure, string $NomSite
+		* @return bool Retourne bouléen true si l'insertion s'est bien réalisée, sinon false
+	*/
+	public function insererArticle(int $id, string $titre, string $url, strin $desc, string $heure, string $NomSite) : bool
+	{
+		$query = 'INSERT INTO tarticle VALUES(:Vid,:Vtitre,:Vurl,:Vdesc,:Vheure,:VNomSite)';
+		if (!$this->con->ExecuteQuery($query,array(':Vid' => array($id, PDO::PARAM_INT), ':Vtitre' => array($titre, PDO::PARAM_STR),':Vurl' => array($url, PDO::PARAM_STR),':Vdesc' => array($desc, PDO::PARAM_STR),':Vheure' => array($heure, PDO::PARAM_STR),':VNomSite' => array($NomSite, PDO::PARAM_STR))))
+			return false;
+		return true;
+	}
+
+	/** * @param int $id
+		* @return bool Retourne bouléen true si la suppréssion s'est bien réalisée, sinon false
+	*/
+	public function delArtById(int $id) : bool
+	{
+		$query = 'DELETE FROM tarticle WHERE id=:Vid';
+		if (!$this->con->ExecuteQuery($query,array(':Vid' => array($id, PDO::PARAM_INT))))
+			return false;
+		return true;
 	}
 }
 
