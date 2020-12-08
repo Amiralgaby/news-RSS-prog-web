@@ -5,13 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" type="text/css" href="style.css" >-->
+    <link rel="stylesheet" href="vue/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css" >
   </head>
   <header>
     <title>News automatisées par flux RSS</title>
     <nav class="border-bottom border-secondary">
+
     	<a href="index.php"><img src="vue/img/mailbox.png" width="36" height="36" alt="img/mailbox.png" /></a> <!--Cliquer sur l'image fera revenir à la page d'articles-->
+
     	<p class="navbar-text text-white">News automatisées par flux RSS</p>
       <ul class="nav justify-content-end">
         <li class="nav-item btn-link"><a href="controller/test.php" class="nav-link active text-white">page de test</a></li>
