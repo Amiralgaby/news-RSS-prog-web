@@ -85,6 +85,13 @@ class Modele
 		return false;
 	}
 
+	public function delFlux(string $name) : bool {
+		if ($this->gateflux->delFluxByName($name)) {
+			return true;
+		}
+		return false;
+	}
+
 }
 
 ?>
