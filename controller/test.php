@@ -37,6 +37,9 @@ echo '<tr>';
 	echo '<th></th>';
 	echo '<th>Titre de l\'article:</th>';
 echo '</tr>';
+
+if(isset($result2)){ 
+
 foreach ($result2 as $value) {
 	$res=$gate->findByName($value->getSite());
 	foreach ($res as $val) {
@@ -64,6 +67,7 @@ foreach ($result2 as $value) {
 			
 		echo '</td>';
 	echo '<tr>';
+	}
 }
 echo '</table>';
 

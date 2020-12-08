@@ -23,6 +23,9 @@ class ControllerAdmin{
 			case 'insert':
 				$this->insertFlux();
 				break;
+			case 'del':
+				$this->delFlux();
+				break;
 			default:
 				$this->error("l'action '". $_REQUEST['action'] ."'' n'est pas bonne."); #debug
 				break;
@@ -51,13 +54,7 @@ class ControllerAdmin{
 		if (Validation::validerURL($url)) 
 		{
 			if ($m->insertFlux($name,$url)) {
-				$result=$m->getFlux();
-				if (!isset($result)){
-					$this->error("Fluxgateway.php : retourneTout() : Une erreur est survenue"); #debug
-					return;
-				}
-				$tabFlux=$m->rendreTabflux($result);
-				require ($rep.$vues['admin']); #On revient juste à la page d'accueil
+				$this->refreshVueAdmin();
 			}
 			else
 			{
@@ -69,6 +66,30 @@ class ControllerAdmin{
 		{
 			$this->error("l'url ou le nom du site ne sont pas bon");
 			return;
+		}
+	}
+
+	function delFlux()
+	{
+		global $rep,$vues;
+		if (!isset($_REQUEST['name'])) 
+		{
+			$this->error("nom du site à supprimer n'est pas set");
+			return;
+		}
+		########## Nettoyage
+		$name = Nettoyeur::nettoyerString($_REQUEST['name']);
+
+		$m=new Modele();
+
+		if ($m->delFlux($name))
+		{
+			$this->refreshVueAdmin();
+		}
+		else
+		{
+			$this->error("la suppression n'a pas réussi");
+			return;	
 		}
 	}
 
@@ -88,11 +109,14 @@ class ControllerAdmin{
 			$this->error('Le nom d\'admin ou le mot de passe est faux');
 			return;
 		}
+		$this->refreshVueAdmin();
+	}
+
+	private function refreshVueAdmin()
+	{
+		global $rep,$vues;
+		$m = new Modele();
 		$result=$m->getFlux();
-		if (!isset($result)){
-			$this->error("Fluxgateway.php : retourneTout() : Une erreur est survenue"); #debug
-			return;
-		}
 		$tabFlux=$m->rendreTabFlux($result);
 		require ($rep.$vues['admin']);
 	}
