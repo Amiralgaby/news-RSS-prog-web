@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ArticleGateway permet de faire la connexion entre la base de données et les Articles
+ * ArticleGateway permet de faire la connexion entre la base de données (table Tadmin) et le modele d'Admin
  */
 
 require_once (__DIR__.'/../controller/Connection.php');

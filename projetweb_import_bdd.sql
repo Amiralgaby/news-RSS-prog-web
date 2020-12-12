@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 01 déc. 2020 à 13:53
+-- Généré le : sam. 12 déc. 2020 à 07:25
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `tadmin`;
 CREATE TABLE IF NOT EXISTS `tadmin` (
   `Nom` varchar(20) COLLATE utf8mb4_bin NOT NULL,
-  `mdp` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `mdp` varchar(80) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`Nom`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS `tadmin` (
 --
 
 INSERT INTO `tadmin` (`Nom`, `mdp`) VALUES
-('Gabriel', 'theuws'),
-('Erwan', 'soulier');
+('Gabriel', '$2y$10$fMuzpkvXliBDdt.s4NGjOOhpU9IBUxrXhfKgrO3S1yr4fS8qE3OoK'),
+('Erwan', '$2y$10$HLWkV9qufp2hAFN9VqE8yeLglWlZCX1I.usJebieztxLQHSAlqeUy');
 
 -- --------------------------------------------------------
 

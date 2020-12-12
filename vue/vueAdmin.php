@@ -15,9 +15,9 @@ if (isset($tabFlux)){
 
 	echo '<b>  Site récupéré			[URL du site]</b></br>';
 foreach ($tabFlux as $value) {
-	echo '<em>'.$value[0].'		['.$value[1].']</em>';
-  echo '<a href="index.php?action=del&&name='.$value[0].'&&cont=1"><button type="button" class="btn btn-danger">Supprimer</button></a>';
-  echo "</br>";
+	echo '<div class="py-2"><em>'.$value[0].'		['.$value[1].']</em>';
+  echo '<a href="index.php?action=del&&name='.$value[0].'&&cont=1"><button type="button" class="btn btn-danger btn-sm">Supprimer</button></a>';
+  echo "</br></div>";
 }
 
 }
