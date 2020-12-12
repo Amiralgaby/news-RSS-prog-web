@@ -101,12 +101,14 @@ class ControllerAdmin{
 		$util = Nettoyeur::nettoyerChaine($util);
 		$mdp = Nettoyeur::nettoyerString($mdp);
 		if (!isset($util) or !isset($mdp)) {
-			$this->error('l\'user_name ou l\'user_pass n\'est pas set.');
+			$merror = "l'user_name ou l'user_pass n'est pas set.";
+			require_once ($rep.$vues['connexion']);
 			return;
 		}
 		$m=new Modele();
 		if (!($m->verifAdmin($util,$mdp))){
-			$this->error('Le nom d\'admin ou le mot de passe est faux');
+			$merror = "Le nom d'admin ou le mot de passe est faux";
+			require_once ($rep.$vues['connexion']);
 			return;
 		}
 		$this->refreshVueAdmin();
