@@ -45,4 +45,17 @@ class AdminGateway
 		}
 		return $resultOUT;
 	}
+
+	public function verifAdmin(string $name, string $mdp) : bool {
+		$res = $this->findByName($name);
+		if (!isset($res)){
+			return false;
+		}
+		foreach ($res as $value) {
+			if (password_verify($mdp, $value->getPass())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

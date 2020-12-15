@@ -8,7 +8,6 @@ class Controller{
 
 	function __construct() {
 		global $rep,$vues;
-		session_start();
 		try{
 			if(isset($_REQUEST['action'])===false)
 				$action=NULL;
@@ -23,7 +22,7 @@ class Controller{
 					$this->connexionAdmin();
 					break;
 				default:
-					$this->error("l'action '". $_REQUEST['action'] ."'' n'est pas bonne."); #debug
+					$this->error("l'action '". $_REQUEST['action'] ."'' n'est pass bonne."); #debug
 					break;
 			}
 		}
@@ -44,6 +43,7 @@ class Controller{
 			$this->error("Articlegateway.php : retourneTout() : Une erreur est survenue"); #debug
 			return;
 		}
+		$_SESSION['role']='util';
 		$tabArt=$m->rendreTabArt($result2);
 		require ($rep.$vues['accueil']);
 	}
@@ -53,7 +53,6 @@ class Controller{
 	{
 		global $rep,$vues;
 		require ($rep.$vues['connexion']);
-		session_destroy();
 	}
 
 	function error(string $mdebug){

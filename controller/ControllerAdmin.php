@@ -20,11 +20,17 @@ class ControllerAdmin{
 			case NULL:
 				$this->init();
 				break;
+			case 'conn':
+				$this->init();
+				break;
 			case 'insert':
 				$this->insertFlux();
 				break;
 			case 'del':
 				$this->delFlux();
+				break;
+			case 'deco':
+				$this->deco();
 				break;
 			default:
 				$this->error("l'action '". $_REQUEST['action'] ."'' n'est pas bonne."); #debug
@@ -96,6 +102,7 @@ class ControllerAdmin{
 	function init()
 	{
 		global $rep,$vues;
+		$m=new Modele();
 		$util = $_REQUEST['user_name'];
 		$mdp = $_REQUEST['user_pass'];
 		$util = Nettoyeur::nettoyerChaine($util);
@@ -105,13 +112,23 @@ class ControllerAdmin{
 			require_once ($rep.$vues['connexion']);
 			return;
 		}
-		$m=new Modele();
-		if (!($m->verifAdmin($util,$mdp))){
-			$merror = "Le nom d'admin ou le mot de passe est faux";
-			require_once ($rep.$vues['connexion']);
-			return;
+		else {
+			if ($m->connection($util, $mdp)){
+				$this->refreshVueAdmin();
+			}
+			else{
+				$merror = "Le nom d'admin ou le mot de passe est faux";
+				require_once ($rep.$vues['connexion']);
+				return;
+			}
 		}
-		$this->refreshVueAdmin();
+	}
+
+	function deco(){
+		global $rep,$vues;
+		$m=new Modele();
+		$m->déconnection();
+		require_once ($rep.$vues['connexion']);
 	}
 
 	private function refreshVueAdmin()

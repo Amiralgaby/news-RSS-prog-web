@@ -12,12 +12,11 @@
     <title>News automatisées par flux RSS</title>
     <nav class="border-bottom border-secondary">
 
-    	<a href="index.php"><img src="vue/img/mailbox.png" width="36" height="36" alt="img/mailbox.png" /></a> <!--Cliquer sur l'image fera revenir à la page d'articles-->
+    	<img src="vue/img/mailbox.png" width="36" height="36" alt="img/mailbox.png" />
 
     	<p class="navbar-text text-white">News automatisées par flux RSS</p>
       <ul class="nav justify-content-end">
-        <li class="nav-item btn-link"><a href="index.php" class="nav-link active text-white">Page Principale</a></li>
-        <li class="nav-item btn-link" ><a href="index.php?action=connexionAdmin" class="nav-link active text-white">Admin connexion</a></li>
+        <li class="nav-item btn-link"><a href="index.php?action=deco" class="nav-link active text-white">Déconnection</a></li>
       </ul>
     </nav>
   </header>

@@ -8,12 +8,12 @@ require_once(__DIR__.'/config/config.php');
 require_once(__DIR__.'/config/Autoload.php');
 Autoload::charger();
 global $rep,$vues,$dns,$user,$pass;
-
+/*
 if(isset($_REQUEST['cont'])===false)
 	$cont = new Controller();
 else
-	$cont = new ControllerAdmin();
+	$cont = new ControllerAdmin();*/
 
-
+new FrontController();
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once 'header.php'; 
+require_once 'headerAdmin.php'; 
 ?>
 
 
@@ -16,7 +16,7 @@ if (isset($tabFlux)){
 	echo '<b>  Site récupéré			[URL du site]</b></br>';
 foreach ($tabFlux as $value) {
 	echo '<div class="py-2"><em>'.$value[0].'		['.$value[1].']</em>';
-  echo '<a href="index.php?action=del&&name='.$value[0].'&&cont=1"><button type="button" class="btn btn-danger btn-sm">Supprimer</button></a>';
+  echo '<a href="index.php?action=del&&name='.$value[0].'"><button type="button" class="btn btn-danger btn-sm">Supprimer</button></a>';
   echo "</br></div>";
 }
 
@@ -24,7 +24,7 @@ foreach ($tabFlux as $value) {
 ?>
 <!-- Séparateur de PHP et HTML bien visible ^^-->
   </div>
-<form action="index.php?action=insert&&cont=1" method="post" class="text-white">
+<form action="index.php?action=insert" method="post" class="text-white">
     <div class="row">
     <div class="col">
           <label for="name">NomSite</label>

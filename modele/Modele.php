@@ -66,19 +66,6 @@ class Modele
 		return $tab;
 	}
 
-	public function verifAdmin(string $name, string $mdp) : bool {
-		$res = $this->findByAdminName($name);
-		if (!isset($res)){
-			return false;
-		}
-		foreach ($res as $value) {
-			if (password_verify($mdp, $value->getPass())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public function insertFlux(string $name, string $url) : bool {
 		if($this->gateflux->insererFlux($name,$url))
 			return true;
@@ -92,6 +79,31 @@ class Modele
 		return false;
 	}
 
+	public function connection($util, $mdp) : bool{
+		$util = Nettoyeur::nettoyerChaine($util);
+		$mdp = Nettoyeur::nettoyerString($mdp);
+		if ($this->gateadmin->verifAdmin($util,$mdp)){
+			$_SESSION['role']='admin';
+			$_SESSION['login']=$util;
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function isAdmin() : bool{
+		if(isset($_SESSION['pseudo']) && isset($_SESSION['role'])){
+			return true;
+		}
+		return false;
+	}
+
+	public function déconnection(){
+		session_unset();
+		session_destroy();
+		$_SESSION = array();
+	}
 }
 
 ?>

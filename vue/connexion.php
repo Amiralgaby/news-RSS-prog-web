@@ -15,7 +15,7 @@ if (isset($merror))
 <!-- Ici sont répertoriés les News avec du php -->
 <center>
 	<div class="bg-white">
-		<form action="index.php?cont=1" method="post">
+		<form action="index.php?action=conn" method="post">
 		    <div>
 		        <label for="name">identifiant :</label>
 		        <input type="text" id="identifiant" name="user_name"
