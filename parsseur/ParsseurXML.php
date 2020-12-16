@@ -4,9 +4,10 @@
  * script qui parse les flux pour les mettres en base de donnée
  */
 /*
-https://www.numerama.com/rss/news.rss
-https://www.numerama.com/feed/
 
+http://atlasflux.saynete.net/
+
+############ MEMO ##########
 Article
 ------
 IDArt
@@ -15,39 +16,53 @@ URL
 Description
 Heure
 NomSite
+
+Flux
+----
+Site
+URL
+
+
 */
+$m = new Modele();
+$TabFlux  = $m->getFlux();
+foreach ($TabFlux as $flux) {
 
-require_once(__DIR__.'/../config/config.php');
+	$parsseur = new SimpleXMLElement($flux->getURL(),0,true);
 
-//chargement autoloader pour autochargement des classes
-require_once(__DIR__.'/../config/Autoload.php');
-Autoload::charger();
+	$Tabitem = $parsseur->channel->item;
 
-$parsseur = new SimpleXMLElement("https://www.numerama.com/rss/news.rss",0,true);
+	$nbElement = count($Tabitem);
+	$TempDEcart = time() - (9 * 24 * 60 * 60);
 
-$Tabitem = $parsseur->channel->item;
 
-$nbElement = count($Tabitem);
+	#echo "le temps actuel est ".$tempDEcart.'<br>';
+	#echo "Nb element : ".$nbElement."<br>";
 
-echo "Nb element : ".$nbElement."<br>";
 
-$tempActuel = time();
-echo "le temps actuel est ".$tempActuel;
-$EcartDeTemp = (1 * 24 * 60 * 60);
+	$TabArticle = array();
+	$i = 0;
+	foreach ($Tabitem as $item) {
+		if ($i != 0 && ($TempDEcart > strtotime($item->pubDate) || $i >= 4)) {
+			break;
+		}
+		$i += 1;
+		
+		#print_r((string)$item->description);
+		#$description = (string)$item->description->desc;
+		#echo $description."<br>";
 
-$TabArticle = array();
-$i = 0;
-foreach ($Tabitem as $item) {
-	if ($tempActuel-$EcartDeTemp > strtotime($item->pubDate)) {
-		break;
+		$TabArticle[] = new Article($i,
+			$item->title,
+			$item->link,
+			#$item->description,
+			"Pas de description",
+			$item->pubDate,
+			$flux->getSite());
 	}
-	$i += 1;
-	$date = strtotime($item->pubDate);
-	echo $date.'<br>';
-	#print_r((string)$item->description);
-	$description = (string)$item[0]->Description;
-	$TabArticle[] = new Article($i,$item->title,$item->link,$item->description,$item->pubDate,"numerama");
+
+	#var_dump($TabArticle);
+	$m->insertTabArticle($TabArticle);
 }
 
 
-var_dump($TabArticle);

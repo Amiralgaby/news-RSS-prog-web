@@ -1,12 +1,4 @@
 <?php
-
-require_once (__DIR__.'/FluxGateway.php');
-require_once (__DIR__.'/ArticleGateway.php');
-require_once (__DIR__.'./AdminGateway.php');
-require_once (__DIR__.'./Flux.php');
-require_once (__DIR__.'./Article.php');
-require_once (__DIR__.'./Admin.php');
-
 class Modele
 {
 	private $gateflux;
@@ -103,6 +95,35 @@ class Modele
 		session_unset();
 		session_destroy();
 		$_SESSION = array();
+	}
+
+	public function deleteArticleVetuste(int $nbJours) : bool
+	{
+		if($this->gatearticle->deleteArticleVetuste($nbJours))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public function insertTabArticle(array $tabArticle) : bool
+	{
+		$nbArtInBase = $this->gatearticle->getNbArticle();
+		if (!isset($nbArtInBase) || $nbArtInBase > 30) {
+			return false;
+		}
+		foreach ($tabArticle as $art) {
+			if(!$this->gatearticle->insererArticle(
+													$art->getTitre(),
+													$art->getURL(),
+													"Description impossible",
+													date('Y-m-d H:i:s',strtotime($art->getHeure())),
+													$art->getSite()))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }
 

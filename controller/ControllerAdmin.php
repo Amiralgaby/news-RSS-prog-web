@@ -1,9 +1,5 @@
 <?php
 
-// Chargement des classes dont ont a besoin
-require_once (__DIR__.'/../config/Validation.php');
-require_once (__DIR__.'/../config/Nettoyeur.php');
-
 class ControllerAdmin{
 
 	function __construct() {
@@ -18,8 +14,6 @@ class ControllerAdmin{
 			switch ($action)
 			{
 			case NULL:
-				$this->init();
-				break;
 			case 'conn':
 				$this->init();
 				break;
@@ -31,6 +25,9 @@ class ControllerAdmin{
 				break;
 			case 'deco':
 				$this->deco();
+				break;
+			case 'parse':
+				$this->parseXML();
 				break;
 			default:
 				$this->error("l'action '". $_REQUEST['action'] ."'' n'est pas bonne."); #debug
@@ -144,6 +141,26 @@ class ControllerAdmin{
 		global $rep,$vues;
 		$debug = $mdebug;
 		require ($rep.$vues['erreur']);
+	}
+
+	function parseXML()
+	{
+		global $rep,$vues;
+		$m = new Modele();
+		if ($m->isAdmin()) {
+			$this->error("parseXML : vous n'êtes pas admin");
+			return;
+		}
+		if($m->deleteArticleVetuste(19))
+		{
+			require ($rep.$vues['parse']);
+			$this->refreshVueAdmin();
+			return;
+		}
+		else
+		{
+			$this->error("parseXML : pas réussi");
+		}
 	}
 
 }

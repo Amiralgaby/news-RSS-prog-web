@@ -12,7 +12,6 @@
  5/ d'une 'heure'
  6/ de son 'Nomsite'
  */
-require_once (__DIR__.'/../controller/Connection.php');
 class ArticleGateway
 {
 	private $con;
@@ -73,13 +72,15 @@ class ArticleGateway
 		return $this->construireArrayDArticle($result);		
 	}
 
-	/** * @param int $id, string $titre, string $url, strin $desc, string $heure, string $NomSite
+	/** * @param string $titre, string $url, strin $desc, string $heure, string $NomSite
 		* @return bool Retourne bouléen true si l'insertion s'est bien réalisée, sinon false
 	*/
-	public function insererArticle(int $id, string $titre, string $url, strin $desc, string $heure, string $NomSite) : bool
+	public function insererArticle(string $titre, string $url, string $desc, string $heure, string $NomSite) : bool
 	{
-		$query = 'INSERT INTO tarticle VALUES(:Vid,:Vtitre,:Vurl,:Vdesc,:Vheure,:VNomSite)';
-		if (!$this->con->ExecuteQuery($query,array(':Vid' => array($id, PDO::PARAM_INT), ':Vtitre' => array($titre, PDO::PARAM_STR),':Vurl' => array($url, PDO::PARAM_STR),':Vdesc' => array($desc, PDO::PARAM_STR),':Vheure' => array($heure, PDO::PARAM_STR),':VNomSite' => array($NomSite, PDO::PARAM_STR))))
+		$query = 'INSERT INTO `tarticle`
+				(`Titre`, `URL`, `Description`, `Heure`, `NomSite`) 
+				VALUES(:Vtitre,:Vurl,:Vdesc,:Vheure,:VNomSite)';
+		if (!$this->con->ExecuteQuery($query,array(':Vtitre' => array($titre, PDO::PARAM_STR),':Vurl' => array($url, PDO::PARAM_STR),':Vdesc' => array($desc, PDO::PARAM_STR),':Vheure' => array($heure, PDO::PARAM_STR),':VNomSite' => array($NomSite, PDO::PARAM_STR))))
 			return false;
 		return true;
 	}
@@ -93,6 +94,26 @@ class ArticleGateway
 		if (!$this->con->ExecuteQuery($query,array(':Vid' => array($id, PDO::PARAM_INT))))
 			return false;
 		return true;
+	}
+
+	public function deleteArticleVetuste(int $nbJours) : bool
+	{
+		$query = 'DELETE FROM tarticle WHERE DATEDIFF(CURRENT_DATE,`Heure`) > :Vjours';
+		if (!$this->con->ExecuteQuery($query,array(':Vjours' => array($nbJours,PDO::PARAM_INT)))) 
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public function getNbArticle() : ?int
+	{
+		$query = 'SELECT count(*) FROM tarticle';
+		if (!$this->con->ExecuteQuery($query,array())) {
+			return null;
+		}
+		$result = $this->con->getResults();
+		return intval($result[0][0]);
 	}
 }
 

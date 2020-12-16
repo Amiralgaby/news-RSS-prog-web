@@ -16,6 +16,7 @@
 
     	<p class="navbar-text text-white">News automatisées par flux RSS</p>
       <ul class="nav justify-content-end">
+        <li class="nav-item btn-link"><a href="index.php?action=parse" class="nav-link active text-white">Rafraîchir les articles</a></li>
         <li class="nav-item btn-link"><a href="index.php?action=deco" class="nav-link active text-white">Déconnection</a></li>
       </ul>
     </nav>

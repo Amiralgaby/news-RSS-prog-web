@@ -1,12 +1,8 @@
 <?php
 
-// Chargement des classes dont ont a besoin
-require_once (__DIR__.'/../config/Validation.php');
-require_once (__DIR__.'/../config/Nettoyeur.php');
-
 class FrontController{
 	function __construct() {
-		$liste_admin = array('conn','insert','deco','del');
+		$liste_admin = array('conn','insert','deco','del','parse');
 		$m=new Modele();
 		try{
 			if(isset($_REQUEST['action'])===false)

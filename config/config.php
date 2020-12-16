@@ -16,5 +16,6 @@ $vues['footer'] = 'vue/footer.php';
 $vues['header'] = 'vue/header.php';
 $vues['admin'] = 'vue/vueAdmin.php';
 $vues['connexion'] = 'vue/connexion.php';
+$vues['parse'] = 'parsseur/ParsseurXML.php';
 
 ?>
