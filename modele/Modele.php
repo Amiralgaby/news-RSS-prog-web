@@ -37,6 +37,9 @@ class Modele
 		return $this->gateadmin->findByName($name);
 	}
 
+	/** * @param array Un tableau d'article
+		* @return array Retourne un tableau contenant les attributs d'un article
+	*/
 	public function rendreTabArt(array $art) : array{
 		$tab=array();
 		foreach ($art as $value) {
@@ -49,6 +52,9 @@ class Modele
 		return $tab;
 	}
 
+	/** * @param array Un tableau de flux
+		* @return array Retourne un tableau contenant seulement les attributs d'un flux
+	*/
 	public function rendreTabFlux(array $flux) : array{
 		$tab=array();
 		foreach ($flux as $value) {
@@ -58,12 +64,19 @@ class Modele
 		return $tab;
 	}
 
+	/** * @param string Le nom du flux
+		* @param string L'url du flux
+		* @return bool Retourne un booléen : vrai si réussi, faux sinon
+	*/
 	public function insertFlux(string $name, string $url) : bool {
 		if($this->gateflux->insererFlux($name,$url))
 			return true;
 		return false;
 	}
 
+	/** * @param string Le nom du flux à supprimer
+		* @return bool Retourne un booléen : vrai si réussi, faux sinon
+	*/
 	public function delFlux(string $name) : bool {
 		if ($this->gateflux->delFluxByName($name)) {
 			return true;
@@ -71,6 +84,10 @@ class Modele
 		return false;
 	}
 
+	/** * @param $util Le nom de l'utilisateur
+		* @param $mdp Le password de l'utilisateur
+		* @return bool 
+	*/
 	public function connection($util, $mdp) : bool{
 		$util = Nettoyeur::nettoyerChaine($util);
 		$mdp = Nettoyeur::nettoyerString($mdp);
@@ -91,21 +108,26 @@ class Modele
 		return false;
 	}
 
+	/* Fonction qui déconnecte l'utilisateur, détruit la session */
 	public function déconnection(){
 		session_unset();
 		session_destroy();
 		$_SESSION = array();
 	}
 
+	/** * @param int Le nombre de jours pour que l'article soit considérer comme vétuste
+		* @return bool Retourne un booléen : vrai si réussi, faux sinon
+	*/
 	public function deleteArticleVetuste(int $nbJours) : bool
 	{
 		if($this->gatearticle->deleteArticleVetuste($nbJours))
-		{
 			return true;
-		}
 		return false;
 	}
 
+	/** * @param array Un tableau contenant les attributs d'un article à insérer
+		* @return bool Retourne un booléen : vrai si réussi , faux sinon
+	*/
 	public function insertTabArticle(array $tabArticle) : bool
 	{
 		$nbArtInBase = $this->gatearticle->getNbArticle();

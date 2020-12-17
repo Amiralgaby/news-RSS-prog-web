@@ -13,6 +13,9 @@ class AdminGateway
 		$this->con = $con;
 	}
 
+	/** * @param string Le login à trouver dans la base
+		* @return array Un tableau contenant les Admin ayant ce login
+	*/
 	public function findByName(string $name) : array
 	{
 		$query = 'SELECT * FROM tadmin WHERE nom = :nom';
@@ -24,6 +27,8 @@ class AdminGateway
 		return array();
 	}
 
+	/** * @return array Retourne un tableau contenant l'entiéreté des Admins
+	*/ 
 	public function retourneTout() : array
 	{
 		$query = 'SELECT * FROM tadmin';
@@ -35,6 +40,9 @@ class AdminGateway
 		return $this->construireArrayDAdmin($result);
 	}
 
+	/** * @param array Un tableau contenant les données à convertir en tableau d'admin
+		* @return array Retourne un tableau d'admin
+	*/
 	private function construireArrayDAdmin(array $resultIN) : array
 	{
 		$resultOUT = array();
@@ -44,6 +52,10 @@ class AdminGateway
 		return $resultOUT;
 	}
 
+	/** * @param string Le login de l'admin
+		* @param string Le password de l'admin
+		* @return bool Retourne un booléen : vrai si réussi, faux sinon
+	*/
 	public function verifAdmin(string $name, string $mdp) : bool {
 		$res = $this->findByName($name);
 		if (!isset($res)){
