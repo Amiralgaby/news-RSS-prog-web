@@ -79,9 +79,13 @@ class ArticleGateway
 
 	/** * @param string $titre, string $url, strin $desc, string $heure, string $NomSite
 		* @return bool Retourne bouléen true si l'insertion s'est bien réalisée, sinon false
+		Ne pas renseigner l'id car il est auto-incrémenté, ne duplique pas les URL dans la base
 	*/
 	public function insererArticle(string $titre, string $url, string $desc, string $heure, string $NomSite) : bool
 	{
+		if ($this->isExisteURL($url)) {
+			return false;
+		}
 		$query = 'INSERT INTO `tarticle`
 				(`Titre`, `URL`, `Description`, `Heure`, `NomSite`) 
 				VALUES(:Vtitre,:Vurl,:Vdesc,:Vheure,:VNomSite)';
@@ -124,6 +128,21 @@ class ArticleGateway
 		}
 		$result = $this->con->getResults();
 		return intval($result[0][0]);
+	}
+
+	public function isExisteURL(string $url) : bool
+	{
+		# S'il y a rien qu'une instance c'est déjà trop d'où le LIMIT 1
+		$query = 'SELECT `IDArt` FROM `tarticle` WHERE `URL` = :VURL LIMIT 1';
+		if (!$this->con->ExecuteQuery($query,array(':VURL' => array($url,PDO::PARAM_STR)))) 
+		{
+			return false;
+		}
+		if (empty($this->con->getResults()))
+		{
+			return false;
+		}
+		return true;
 	}
 }
 

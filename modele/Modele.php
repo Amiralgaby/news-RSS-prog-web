@@ -102,7 +102,7 @@ class Modele
 	}
 
 	public function isAdmin() : bool{
-		if(isset($_SESSION['pseudo']) && isset($_SESSION['role'])){
+		if(isset($_SESSION['login']) && isset($_SESSION['role'])){
 			return true;
 		}
 		return false;
@@ -128,11 +128,12 @@ class Modele
 	/** * @param array Un tableau contenant les attributs d'un article à insérer
 		* @return bool Retourne un booléen : vrai si réussi , faux sinon
 	*/
-	public function insertTabArticle(array $tabArticle) : bool
+	public function insertTabArticle(array $tabArticle) : int
 	{
+		$nbArtNonAjoute = 0;
 		$nbArtInBase = $this->gatearticle->getNbArticle();
-		if (!isset($nbArtInBase) || $nbArtInBase > 30) {
-			return false;
+		if (!isset($nbArtInBase) || $nbArtInBase > 50) {
+			return count($tabArticle);
 		}
 		foreach ($tabArticle as $art) {
 			if(!$this->gatearticle->insererArticle(
@@ -142,10 +143,10 @@ class Modele
 													date('Y-m-d H:i:s',strtotime($art->getHeure())),
 													$art->getSite()))
 			{
-				return false;
+				$nbArtNonAjoute += 1;
 			}
 		}
-		return true;
+		return $nbArtNonAjoute;
 	}
 }
 

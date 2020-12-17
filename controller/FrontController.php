@@ -10,7 +10,9 @@ class FrontController{
 			else
 				$action=$_REQUEST['action'];
 			if ($m->isAdmin())
+			{
 				new ControllerAdmin();
+			}
 			else{
 				if(in_array($action, $liste_admin))
 					new ControllerAdmin();

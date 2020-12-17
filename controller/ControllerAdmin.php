@@ -46,7 +46,7 @@ class ControllerAdmin{
 	{
 		global $rep,$vues;
 		if (!isset($_REQUEST['site_name']) or !isset($_REQUEST['site_url'])) {
-			$this->error('l\'user_name ou l\'user_pass n\'est pas set.');
+			$this->error('le site_name ou le site_url n\'est pas set.');
 			return;
 		}
 		########## Nettoyage
@@ -100,6 +100,10 @@ class ControllerAdmin{
 	{
 		global $rep,$vues;
 		$m=new Modele();
+		if (!isset($_REQUEST['user_name']) or !isset($_REQUEST['user_pass'])) {
+			$this->error('l\'user_name ou l\'user_pass n\'est pas set.');
+			return;
+		}
 		$util = $_REQUEST['user_name'];
 		$mdp = $_REQUEST['user_pass'];
 		$util = Nettoyeur::nettoyerChaine($util);
@@ -147,13 +151,13 @@ class ControllerAdmin{
 	{
 		global $rep,$vues;
 		$m = new Modele();
-		if ($m->isAdmin()) {
+		if (!$m->isAdmin()) {
 			$this->error("parseXML : vous n'êtes pas admin");
 			return;
 		}
-		if($m->deleteArticleVetuste(19))
+		if($m->deleteArticleVetuste(20)) # Tout se qui date de plus de nbjours sera supprimer
 		{
-			require ($rep.$vues['parse']);
+			require ($rep.$vues['parse']); # Appel du parsseur : ParsseurXML.php
 			$this->refreshVueAdmin();
 			return;
 		}
