@@ -1,5 +1,8 @@
 <!-- PAGE DE CONNEXION -->
-<?php require_once 'header.php'; ?>
+<?php 
+global $rep,$vues;
+require_once ($rep.$vues['header']);
+?>
 
 
 <?php
@@ -36,4 +39,7 @@ if (isset($merror))
 </center>
 
 <!-- Séparateur de PHP et HTML bien visible ^^-->
-<?php require_once 'footer.php'; ?>
+<?php 
+global $rep,$vues;
+require_once ($rep.$vues['footer']);
+?>

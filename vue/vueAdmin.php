@@ -1,5 +1,6 @@
 <?php
-require_once 'headerAdmin.php'; 
+global $rep,$vues;
+require_once ($rep.$vues['headerAdmin']); 
 ?>
 
 
@@ -23,23 +24,27 @@ foreach ($tabFlux as $value) {
 }
 ?>
 <!-- Séparateur de PHP et HTML bien visible ^^-->
-  </div>
+    </div> <!-- Fin de la liste de flux -->
+
+
 <form action="index.php?action=insert" method="post" class="text-white">
     <div class="row">
-    <div class="col">
-          <label for="name">NomSite</label>
-          <input style='width:100%' type="text" id="name" name="site_name">
+      <div class="col">
+            <label for="name">NomSite</label>
+            <input style='width:100%' type="text" id="name" name="site_name">
+      </div>
+      <div class="col-6">
+            <label for="url">Adresse URL du site</label>
+            <input style='width:100%' type="text" id="url" name="site_url">
+      </div>
+      <div class="col" style="margin-top: 28px">
+        <input type="submit" value="Ajouter un flux">
+      </div>
     </div>
-    <div class="col-6">
-          <label for="url">Adresse URL du site</label>
-          <input style='width:100%' type="text" id="url" name="site_url">
-    </div>
-    <div class="col">
-      </br>
-      <input type="submit" value="Ajouter un flux">
-    </div>
-  </div>
-</div>
 </form>
-</div>
-<?php require_once 'footer.php'; ?>
+
+</div> <!-- Fin du container général -->
+<?php 
+global $rep,$vues;
+require_once ($rep.$vues['footer']);
+?>

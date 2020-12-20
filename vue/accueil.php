@@ -1,5 +1,6 @@
 <?php
-require_once 'header.php'; 
+global $rep,$vues;
+require_once ($rep.$vues['header']);
 ?>
 
 
@@ -55,4 +56,7 @@ echo '</table>';
   </div>
 </div>
 
-<?php require_once 'footer.php'; ?>
+<?php
+global $rep,$vues;
+require_once ($rep.$vues['footer']);
+?>
