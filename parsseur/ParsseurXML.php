@@ -39,7 +39,9 @@ foreach ($TabFlux as $flux) {
 		J'ajoute si le nombre d'article que j'ai
 		à propose de ce site est 0, ou quand le $tempDEcart est inférieur à la date de publication
 		ET que le nombre d'article que j'ai à propos de ce site soit inférieur à $maxBySite
+		
 		*/
+
 		if ($i != 0 && ($TempDEcart > strtotime($item->pubDate) || $i >= $maxBySite)) {
 			break;
 		}
@@ -49,13 +51,14 @@ foreach ($TabFlux as $flux) {
 		#$description = (string)$item->description->desc;
 		#echo $description."<br>";
 
-		$TabArticle[] = new Article($i, # cet id ne sera pas garder au moment de la mise en base
+		$art = new Article($i, # cet id ne sera pas garder au moment de la mise en base
 			$item->title,
 			$item->link,
 			#$item->description,
 			"Pas de description",
 			$item->pubDate,
 			$flux->getSite());
+		array_push($TabArticle, $art);
 	}
 	$nbElement += $i; # Je compte le nombre d'élément
 	#var_dump($TabArticle);

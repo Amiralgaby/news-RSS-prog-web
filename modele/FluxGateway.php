@@ -24,7 +24,7 @@ class FluxGateway
 	{
 		$resultOUT = array();
 		foreach ($resultIN as $value) {
-			$resultOUT[] = new Flux($value['NomSite'],$value['URL']);
+			array_push($resultOUT, new Flux($value['NomSite'],$value['URL']));
 		}
 		return $resultOUT;
 	}
