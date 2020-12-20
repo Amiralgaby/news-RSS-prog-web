@@ -43,10 +43,10 @@ foreach ($tabFlux as $value) {
 </form>
 
 <p style="font: bold 1.2em Gill Sans, sans-serif" class="mt mt-4"> Le nombre de News à afficher sur la page principal </p>
-<form action="index.php" method="get" class="text-white">
+<form action="index.php?action=updateMaxNews" method="post" class="text-white">
   <input type="number" id="input_nb" name="maxNews" min="1" max="100"
       <?php
-         $maxNews = (empty($_REQUEST['max'])) ? '10' : $_REQUEST['maxNews'];
+         $maxNews = (isset($maxNews)) ? $maxNews : '10';
          echo 'value="'.$maxNews.'"';
       ?>
   />

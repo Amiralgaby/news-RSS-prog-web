@@ -8,8 +8,6 @@ require_once ($rep.$vues['header']);
   <b><p class="text-white"> Liste des news RSS: </p></b>
   <div class="container bg-white">
 
-<!-- Ici sont répertoriés les News avec du php -->
-
 <table>
 	<tr>
 		<th>Date:</th>
@@ -19,9 +17,12 @@ require_once ($rep.$vues['header']);
 		<th>Titre de l'article:</th>
 	</tr>
 
+<!-- Ici sont répertoriés les News avec du php -->
+
 <?php
-$maxNews = (empty($_REQUEST['maxNews'])) ? '10' : $_REQUEST['maxNews'];
-$page = (empty($_REQUEST['page'])) ? '1' : $_REQUEST['page'];
+
+$maxNews = (isset($maxNews)) ? $maxNews : '3';
+$page = (isset($page)) ? $page : '1';
 
 if (isset($tabArt)) {
 
@@ -30,55 +31,36 @@ $pageMax = ceil($nbNews/$maxNews);
 if ($page > $pageMax) {
 	$page = $pageMax;
 }
-/*
-echo "[DEBUG] accueil.php : pageMax : ".$pageMax.'</br>';
-echo "[DEBUG] accueil.php : nbNews : ".$nbNews.'</br>';
-echo "[DEBUG] accueil.php : nb max News par page ".$maxNews."</br>;
-*/
-echo "Vous êtes sur la page ".$page.'</br>'; # DEBUG
-$i = 0;
-foreach ($tabArt as $value) {
-	if ($i >= $maxNews) {
-		break;
-	}
-	echo '<tr>';
-		echo '<td>';
-			//echo date('d/m/y \à\ H:i:s ',strtotime($value->getHeure()));
-			echo $value[0];
-		echo '</td>';
-		echo '<td>';
-			echo ' - ';
-		echo '</td>';
-		echo '<td>';
-			echo '<a href="'.$value[1].'">';
-				echo $value[2];
-			echo '</a>';
-		echo '</td>';
-		echo '<td>';
-			echo ' : ';
-		echo '</td>';
-		echo '<td>';
-			echo '<a href="'.$value[3].'">';
-				echo $value[4];
-			echo '</a>';
-			
-		echo '</td>';
-	echo '<tr>';
 
-	$i += 1;
+echo "Vous êtes sur la page ".$page.'</br>';
+$i = 0;
+for ($i=($page-1)*$maxNews; $i < $page*$maxNews && $i < $nbNews; $i++) {
+			if (isset($tabArt[$i])) {
+				$value = $tabArt[$i];
+			}
+?>
+	<tr>
+		<td> <?= $value[0] ?> </td>
+		<td> - </td>
+		<td> <?php echo '<a href="'.$value[1].'">'.$value[2].'</a>'; ?></td>
+		<td> : </td>
+		<td> <?php echo '<a href="'.$value[3].'">'.$value[4].'</a>'; ?></td>
+	</tr>
+<?php
 	}
 }
 ?>
 </table>
 
 
-
+<!-- Traitement pour la mise en forme de la pagination -->
 <?php
 if (isset($page) && isset($nbNews) && isset($pageMax) && $pageMax > 1) {
 	$pageDecremente = ($page == 1) ? '1' : $page-1;
 	$pageIncremente = ($page == $pageMax) ? $pageMax : $page+1;
 ?>
 
+<!-- Vue de la pagination -->
 <div>
 	<a href="index.php?page=1">1</a>
 	<!-- Décrémenter le numéro de page-->

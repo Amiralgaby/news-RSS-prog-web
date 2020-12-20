@@ -2,7 +2,7 @@
 
 class FrontController{
 	function __construct() {
-		$liste_admin = array('conn','insert','deco','del','parse');
+		$liste_admin = array('conn','insert','deco','del','parse','updateMaxNews');
 		$m=new Modele();
 		try{
 			if(isset($_REQUEST['action'])===false)

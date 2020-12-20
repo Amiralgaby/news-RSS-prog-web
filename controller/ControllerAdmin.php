@@ -29,6 +29,9 @@ class ControllerAdmin{
 			case 'parse':
 				$this->parseXML();
 				break;
+			case 'updateMaxNews':
+				$this->updateMaxNews();
+				break;
 			default:
 				$this->error("l'action '". $_REQUEST['action'] ."'' n'est pas bonne."); #debug
 				break;
@@ -44,7 +47,6 @@ class ControllerAdmin{
 
 	function insertFlux()
 	{
-		global $rep,$vues;
 		if (!isset($_REQUEST['site_name']) or !isset($_REQUEST['site_url'])) {
 			$this->error('le site_name ou le site_url n\'est pas set.');
 			return;
@@ -74,7 +76,6 @@ class ControllerAdmin{
 
 	function delFlux()
 	{
-		global $rep,$vues;
 		if (!isset($_REQUEST['name'])) 
 		{
 			$this->error("nom du site à supprimer n'est pas set");
@@ -86,9 +87,7 @@ class ControllerAdmin{
 		$m=new Modele();
 
 		if ($m->delFlux($name))
-		{
 			$this->refreshVueAdmin();
-		}
 		else
 		{
 			$this->error("la suppression n'a pas réussi");
@@ -125,6 +124,20 @@ class ControllerAdmin{
 		}
 	}
 
+	function updateMaxNews()
+	{
+		if (!isset($_REQUEST['maxNews'])) {
+			$this->error("Le nombre de news à mettre à jour n'est pas fourni");
+			return;
+		}
+		$maxNews = Nettoyeur::nettoyerNumber($_REQUEST['maxNews']);
+		if (!Validation::validerNumber($maxNews))
+			$this->error("Le nombre donné n'est pas valide");
+		#unset($_COOKIE['maxNews']);
+		setcookie('maxNews', $maxNews, time()+(3*24*60*60));
+		$this->refreshVueAdmin();
+	}
+
 	function deco(){
 		global $rep,$vues;
 		$m=new Modele();
@@ -138,6 +151,12 @@ class ControllerAdmin{
 		$m = new Modele();
 		$result=$m->getFlux();
 		$tabFlux=$m->rendreTabFlux($result);
+		####### COOKIE ! ##########
+		$maxNews = (empty($_COOKIE['maxNews'])) ? '10' : $_COOKIE['maxNews'];
+		$maxNews = Nettoyeur::nettoyerNumber($maxNews);
+		if (!Validation::validerNumber($maxNews)) {
+			$this->error("Articlegateway.php : le cookie de nombre de news par page n'est pas valide");
+		}
 		require ($rep.$vues['admin']);
 	}
 

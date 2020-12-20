@@ -39,8 +39,20 @@ class Controller{
 			$this->error("Articlegateway.php : retourneTout() : Une erreur est survenue"); #debug
 			return;
 		}
-		$_SESSION['role']='util';
 		$tabArt=$m->rendreTabArt($result2);
+		$_SESSION['role']='util';
+		####### COOKIE ! ##########
+		$maxNews = (empty($_COOKIE['maxNews'])) ? '10' : $_COOKIE['maxNews'];
+		$maxNews = Nettoyeur::nettoyerNumber($maxNews);
+		if (!Validation::validerNumber($maxNews)) {
+			$this->error("Articlegateway.php : le cookie de nombre de news par page n'est pas valide");
+		}
+		####### PAGE ! ##########
+		$page = (empty($_REQUEST['page'])) ? '1' : $_REQUEST['page'];
+		$page = Nettoyeur::nettoyerNumber($page);
+		if (!Validation::validerNumber($page)) {
+			$this->error("Articlegateway.php : le numéro de page n'est pas valide");
+		}
 		require ($rep.$vues['accueil']);
 	}
 
