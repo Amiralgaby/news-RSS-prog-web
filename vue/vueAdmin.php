@@ -9,7 +9,6 @@ require_once ($rep.$vues['headerAdmin']);
   	<div class="container bg-white">
 
 <!-- Ici sont répertoriés les News avec du php -->
-
 <?php
 #je reçois des Flux
 if (isset($tabFlux)){
@@ -41,6 +40,17 @@ foreach ($tabFlux as $value) {
         <input type="submit" value="Ajouter un flux">
       </div>
     </div>
+</form>
+
+<p style="font: bold 1.2em Gill Sans, sans-serif" class="mt mt-4"> Le nombre de News à afficher sur la page principal </p>
+<form action="index.php" method="get" class="text-white">
+  <input type="number" id="input_nb" name="maxNews" min="1" max="100"
+      <?php
+         $maxNews = (empty($_REQUEST['max'])) ? '10' : $_REQUEST['maxNews'];
+         echo 'value="'.$maxNews.'"';
+      ?>
+  />
+  <input type="submit" value="update">
 </form>
 
 </div> <!-- Fin du container général -->
