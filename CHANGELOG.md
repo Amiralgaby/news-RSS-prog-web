@@ -19,6 +19,8 @@ Erwan à réalisé :
 * La classe AdminGateway.php
 
 
+* La classe Modele.php
+* La structure du site
 
 * Gabriel
 
@@ -26,13 +28,13 @@ Erwan à réalisé :
 
 J'ai réalisé :
 
-* L'implémentation de l'Autoload.php et Connection
-* Le parsseur XML (version en développement)
+* Le choix de news à afficher par page
+* L'implémentation de l'Autoload.php et de Connection.php
+* Le parsseur XML
 * La suppresssion de flux
+
 * La base du site (en fonctionnel), la Validation, le Nettoyeur
 * L'implémentation des mots de passe hashés
-
-
 
 * Commun
 
@@ -46,4 +48,4 @@ Réalisé en commun :
 
 * L'affichage
 
-* Les validations et nettoyage des variables 
+* Les validations et nettoyages des variables 
