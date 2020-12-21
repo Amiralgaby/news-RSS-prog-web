@@ -133,7 +133,6 @@ class ControllerAdmin{
 		$maxNews = Nettoyeur::nettoyerNumber($_REQUEST['maxNews']);
 		if (!Validation::validerNumber($maxNews))
 			$this->error("Le nombre donné n'est pas valide");
-		#unset($_COOKIE['maxNews']);
 		setcookie('maxNews', $maxNews, time()+(3*24*60*60));
 		$this->refreshVueAdmin();
 	}
@@ -152,10 +151,7 @@ class ControllerAdmin{
 		$result=$m->getFlux();
 		$tabFlux=$m->rendreTabFlux($result);
 		####### COOKIE ! ##########
-		if (isset($maxNews))
-			$maxNews = ($maxNews > '0') ? $maxNews : '10';
-		else
-			$maxNews = (isset($_COOKIE['maxNews']) && $_COOKIE['maxNews'] > '0') ? $_COOKIE['maxNews'] : '10';
+		$maxNews = (isset($_COOKIE['maxNews']) && $_COOKIE['maxNews'] > '0') ? $_COOKIE['maxNews'] : '3';
 		###### NETTOYAGE ET VALIDATION ######
 		$maxNews = Nettoyeur::nettoyerNumber($maxNews);
 		if (!Validation::validerNumber($maxNews)) {
