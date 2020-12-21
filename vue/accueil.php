@@ -21,8 +21,8 @@ require_once ($rep.$vues['header']);
 
 <?php
 
-$maxNews = (isset($maxNews)) ? $maxNews : '3';
-$page = (isset($page)) ? $page : '1';
+$maxNews = (isset($maxNews) && $maxNews > '0') ? $maxNews : '3';
+$page = (isset($page) && $page > '0') ? $page : '1';
 
 if (isset($tabArt)) {
 

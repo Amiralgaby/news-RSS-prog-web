@@ -152,7 +152,11 @@ class ControllerAdmin{
 		$result=$m->getFlux();
 		$tabFlux=$m->rendreTabFlux($result);
 		####### COOKIE ! ##########
-		$maxNews = (empty($_COOKIE['maxNews'])) ? '10' : $_COOKIE['maxNews'];
+		if (isset($maxNews))
+			$maxNews = ($maxNews > '0') ? $maxNews : '10';
+		else
+			$maxNews = (isset($_COOKIE['maxNews']) && $_COOKIE['maxNews'] > '0') ? $_COOKIE['maxNews'] : '10';
+		###### NETTOYAGE ET VALIDATION ######
 		$maxNews = Nettoyeur::nettoyerNumber($maxNews);
 		if (!Validation::validerNumber($maxNews)) {
 			$this->error("Articlegateway.php : le cookie de nombre de news par page n'est pas valide");
