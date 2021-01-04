@@ -14,6 +14,8 @@ class ControllerAdmin{
 			switch ($action)
 			{
 			case NULL:
+				$this->init();
+				break;
 			case 'conn':
 				$this->init();
 				break;
