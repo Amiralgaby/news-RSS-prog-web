@@ -1,5 +1,7 @@
 <?php
 
+require_once (__DIR__.'/../controller/Connection.php');
+
 $rep=__DIR__.'/../';
 
 $dns='mysql:host=localhost;dbname=projetweb';
@@ -7,6 +9,8 @@ $dns='mysql:host=localhost;dbname=projetweb';
 $user='root'; # à changer avec un invité qui n'aura que les droits SELECT
 
 $pass='';
+
+$con = new Connection($dns,$user,$pass);
 
 //Vues
 
