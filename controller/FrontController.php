@@ -10,14 +10,12 @@ class FrontController{
 			else
 				$action=$_REQUEST['action'];
 			if ($m->isAdmin())
-			{
 				new ControllerAdmin();
-			}
-			else{
+			else
+			{
 				if(in_array($action, $liste_admin))
-					new ControllerAdmin();
-				else
-					new Controller();
+					$action="connexionAdmin";
+				new Controller();
 			}
 		}
 		catch (Exception $e){
