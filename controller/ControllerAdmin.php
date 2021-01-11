@@ -4,7 +4,6 @@ class ControllerAdmin{
 
 	function __construct() {
 		global $rep,$vues;
-		session_start();
 
 		try{
 			if(isset($_REQUEST['action'])===false)

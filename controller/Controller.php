@@ -18,7 +18,7 @@ class Controller{
 					$this->connexionAdmin();
 					break;
 				default:
-					$this->error("l'action '". $_REQUEST['action'] ."'' n'est pass bonne."); #debug
+					$this->error("l'action '". $_REQUEST['action'] ."' n'est pas bonne."); #debug
 					break;
 			}
 		}
