@@ -77,8 +77,8 @@ class ArticleGateway
 		return $this->construireArrayDArticle($result);		
 	}
 
-	/** * @param string $titre, string $url, strin $desc, string $heure, string $NomSite
-		* @return bool Retourne bouléen true si l'insertion s'est bien réalisée, sinon false
+	/** * @param string $titre, string $url, string $desc, string $heure, string $NomSite
+		* @return bool Retourne booléen true si l'insertion s'est bien réalisée, sinon false
 		Ne pas renseigner l'id car il est auto-incrémenté, ne duplique pas les URL dans la base
 	*/
 	public function insererArticle(string $titre, string $url, string $desc, string $heure, string $NomSite) : bool
@@ -95,7 +95,7 @@ class ArticleGateway
 	}
 
 	/** * @param int l'id de l'article à supprimmer
-		* @return bool Retourne bouléen true si la suppréssion s'est bien réalisée, sinon false
+		* @return bool Retourne bouléen true si la suppression s'est bien réalisée, sinon false
 	*/
 	public function delArtById(int $id) : bool
 	{
