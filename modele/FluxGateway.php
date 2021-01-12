@@ -5,7 +5,7 @@
 
 /**
  * Ne pas oubliez qu'un flux se compose :
- 1. de son 'NomSite'
+ 1/ de son 'NomSite'
  2/ de son 'URL'
  */
 class FluxGateway

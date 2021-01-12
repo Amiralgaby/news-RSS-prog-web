@@ -15,7 +15,7 @@ class FrontController{
 			else
 			{
 				if(in_array($action, $liste_admin))
-					$action="connexionAdmin";
+					$_REQUEST['action'] ="connexionAdmin";
 				new Controller();
 			}
 		}
