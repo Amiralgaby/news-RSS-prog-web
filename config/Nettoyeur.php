@@ -24,7 +24,7 @@ class Nettoyeur
 	}
 
 	/** * @param string $chaine
-	       * @return ?string Returns la première occurence du motif [[:alnum -_]]+, null s'il ne trouve pas.
+	    * @return ?string Returns la première occurence du motif [[:alnum -_]]+, null s'il ne trouve pas.
 	*/ 
 	public static function nettoyerChaine(string $chaine) : ?string
 	{
@@ -34,8 +34,7 @@ class Nettoyeur
 		*/
 		$chaine = Nettoyeur::nettoyerString($chaine);
     	$valeur = preg_match_all('/[[:alnum:] -_]+/', $chaine, $answer, 0);
-    	#debug
-    	#var_dump($answer); echo '<br> avec la valeur '.$valeur;
+
     	foreach ($answer[0] as $key => $value) {
     		if ($value != null) {
     			return $value;
@@ -45,7 +44,7 @@ class Nettoyeur
 	}
 
 	/** * @param string $valeur
-	       * @return string Returns un string nettoyé
+	    * @return string Returns un string nettoyé
 	*/ 
 	public static function nettoyerString(string $valeur) : string
 	{

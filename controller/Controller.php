@@ -24,7 +24,7 @@ class Controller{
 		}
 		catch (Exception $e)
 		{
-			$this->error("[DEBUG] le try s'est planté"); #debug
+			$this->error($e->getMessage()); #debug
 		}
 
 		exit(0);
